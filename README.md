@@ -7,7 +7,10 @@ Douban-Android-SDK-OAuth2
 
 改写正在进行中...
 
+Log:
+
 2013-12-16
+
 实现Oauth2认证登陆及获取用户信息
 
 
