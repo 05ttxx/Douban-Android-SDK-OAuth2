@@ -35,6 +35,7 @@ public class Converters {
 	 */
 	public static AccessToken stringToAccessToken(String responseStr)
 			throws DoubanException {
+		
 		if (responseStr == null) {
 			throw ErrorHandler.cannotGetAccessToken();
 		}
