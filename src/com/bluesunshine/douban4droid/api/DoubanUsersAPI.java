@@ -79,7 +79,6 @@ public class DoubanUsersAPI extends DoubanService {
 
 	/**
 	 * 获取指定数量的用户信息
-	 * (未测试)
 	 * 
 	 * @param keyword
 	 * @param startIndex
