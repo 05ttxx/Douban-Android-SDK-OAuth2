@@ -3,16 +3,9 @@ package com.bluesunshine.douban4droid.provider;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import com.bluesunshine.douban4droid.api.DoubanService;
 import com.bluesunshine.douban4droid.constants.DefaultConfigs;
-import com.bluesunshine.douban4droid.model.app.DoubanException;
 import com.bluesunshine.douban4droid.model.app.RequestGrantScope;
-import com.bluesunshine.douban4droid.utils.AsyncDoubanRunner;
 import com.bluesunshine.douban4droid.utils.Debugs;
-import com.bluesunshine.douban4droid.utils.RequestListener;
 
 /**
  * 
@@ -136,30 +129,6 @@ public class OAuthDoubanProvider {
 	public OAuthDoubanProvider addScope(RequestGrantScope scope) {
 		this.scopes.add(scope);
 		return this;
-	}
-
-
-	/**
-	 * 
-	 * 通过code获取包含access_token的JSON数据   
-	 * Modified by hao.wen 2013-12-5
-	 * 
-	 * @param code
-	 * @param listener
-	 * @throws DoubanException
-	 */
-	public void useless_tradeAccessTokenWithCode(String code, RequestListener listener)
-			throws DoubanException {
-
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("client_id", this.apiKey));
-		params.add(new BasicNameValuePair("client_secret", this.secretKey));
-		params.add(new BasicNameValuePair("redirect_uri", this.redirectUrl));
-		params.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		params.add(new BasicNameValuePair("code", code));
-
-		AsyncDoubanRunner.request(DefaultConfigs.ACCESS_TOKEN_URL, params,
-				DoubanService.HTTPMETHOD_POST, null, listener);
 	}
 	
 	/**

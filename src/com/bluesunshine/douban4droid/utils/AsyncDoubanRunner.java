@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 
+import com.bluesunshine.douban4droid.model.app.DoubanException;
+
 public class AsyncDoubanRunner {
 
 	/**
@@ -33,8 +35,17 @@ public class AsyncDoubanRunner {
 			@Override
 			public void run() {
 
-				String resp = new HttpManager().openUrl(url, params, method, token);
-				listener.onComplete(resp);
+				String resp = null;
+				try {
+					
+					resp = new HttpManager().openUrl(url, params, method, token);
+					listener.onComplete(resp);
+				} catch (DoubanException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					listener.onError(e);
+				}
+				
 			}
 		}.start();
 

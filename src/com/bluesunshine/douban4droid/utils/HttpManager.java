@@ -20,6 +20,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
 import com.bluesunshine.douban4droid.api.DoubanService;
+import com.bluesunshine.douban4droid.model.app.DoubanException;
 
 /**
  * @author hao.wen <wenhao7704@gmail.com>
@@ -43,12 +44,14 @@ public class HttpManager {
 	 * @return
 	 */
 	public String openUrl(String url, List<NameValuePair> params,
-			String method, String token) {
+			String method, String token) throws DoubanException{
 
 		String result = null;
 		if (method.equals(DoubanService.HTTPMETHOD_POST)) {
+			
 			result = postResponse(url, params, token);
 		} else if (method.equals(DoubanService.HTTPMETHOD_GET)) {
+			
 			result = getResponse(url, params, token);
 		}
 		
@@ -57,17 +60,18 @@ public class HttpManager {
 
 	/**
 	 * 
-	 * post方式获取网络数据 NOTICE: 需要加入相关的HTTP头部
+	 * get方式获取网络数据 NOTICE: 需要加入相关的HTTP头部
 	 * 
 	 * @param url
 	 * @param params
 	 * @return
 	 */
 	private String getResponse(String url, List<NameValuePair> params,
-			String token) {
+			String token) throws DoubanException{
 
 		HttpClient client = new DefaultHttpClient();
-		if (params != null && params.size() > 0) {
+		
+		if ((params != null) && (params.size() > 0)) {
 			String encodedParams = encodeParameters(params);
 			url = url + "?" + encodedParams;
 		}
@@ -101,9 +105,10 @@ public class HttpManager {
 	 * @param url
 	 * @param params
 	 * @return
+	 * 
 	 */
 	private String postResponse(String url, List<NameValuePair> params,
-			String token) {
+			String token) throws DoubanException{
 
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
@@ -136,15 +141,16 @@ public class HttpManager {
 	 * @param response
 	 * @return
 	 */
-	private String getResponseString(HttpResponse response) {
+	private String getResponseString(HttpResponse response) throws DoubanException{
 
 		String result = null;
 		StatusLine status = response.getStatusLine();
 		int statusCode = status.getStatusCode();
 
 		if (statusCode != 200) {
-
-			return result;
+			
+			result = readHttpResponse(response);
+			throw  ErrorHandler.getCustomDoubanException(statusCode, result);
 		}
 		result = readHttpResponse(response);
 

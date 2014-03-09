@@ -36,6 +36,7 @@ public abstract class DoubanService {
 	 */
 	protected void request(final String url, final List<NameValuePair> params,
 			final String httpMethod, final String token, RequestListener listener) {
+		
 		AsyncDoubanRunner.request(url, params, httpMethod, token, listener);
 	}
 }

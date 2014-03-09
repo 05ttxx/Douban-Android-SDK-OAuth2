@@ -6,6 +6,10 @@ package com.bluesunshine.douban4droid.model.app;
  */
 public class DoubanException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -726073532523942914L;
 	private int errorCode;
 	private String errorMsg;
 

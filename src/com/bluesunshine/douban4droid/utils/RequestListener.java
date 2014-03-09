@@ -10,6 +10,7 @@ import com.bluesunshine.douban4droid.model.app.DoubanException;
  * 
  */
 public interface RequestListener {
+	
 	/**
 	 * 用于获取服务器返回的响应内容
 	 * 
