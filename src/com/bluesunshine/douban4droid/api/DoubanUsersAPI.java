@@ -33,8 +33,7 @@ public class DoubanUsersAPI extends DoubanService {
 	 * @param listener
 	 * 
 	 */
-	public void getLoggedInUserProfile(RequestListener listener)
-			throws DoubanException {
+	public void getLoggedInUserProfile(RequestListener listener){
 
 		String url = null;
 		try {
@@ -56,8 +55,7 @@ public class DoubanUsersAPI extends DoubanService {
 	 *            uid或者id
 	 * @param listener
 	 */
-	public void getUserProfileByUid(String uid, RequestListener listener)
-			throws DoubanException {
+	public void getUserProfileByUid(String uid, RequestListener listener) {
 
 		String url = RequestUrls.DOUBAN_USER_V2_PREFIX + "/" + uid;
 		request(url, null, HTTPMETHOD_GET, null, listener);
